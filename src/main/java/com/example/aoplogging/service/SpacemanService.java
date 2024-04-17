@@ -12,7 +12,9 @@ public class SpacemanService {
     @Autowired
     SpacemanRepository repository;
 
-    public Spaceman addSpaceman(Spaceman spaceman){
+    public Spaceman addSpaceman(Spaceman spaceman) throws Exception{
+        if("".equals(spaceman.getName()) || spaceman.getName().isEmpty())
+            throw new Exception("Please send a valid name! ");
         Spaceman savedSpaceman= repository.save(spaceman);
         return savedSpaceman;
     }

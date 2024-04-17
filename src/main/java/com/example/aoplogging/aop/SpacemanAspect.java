@@ -1,9 +1,8 @@
 package com.example.aoplogging.aop;
 
+import com.example.aoplogging.entities.Spaceman;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -36,6 +35,17 @@ public class SpacemanAspect {
     @After(value = "execution(* com.example.aoplogging.service.SpacemanService.*(..))")
     public void afterAdviceForService(JoinPoint joinPoint){
         System.out.println("Request to service " +joinPoint.getSignature() + "ended at "+ new Date());
+    }
+
+    //more advices
+    @AfterReturning(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))", returning = "spaceman")
+    public void afterReturningAdviceForService(JoinPoint joinPoint, Spaceman spaceman){
+        System.out.println("Business logic to add a Spaceman executed successfully. Spaceman is saved with ID :" + spaceman.getId());
+    }
+
+    @AfterThrowing(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))", throwing = "exception")
+    public void afterThrowingAdviceForService(JoinPoint joinPoint, Exception exception){
+        System.out.println("Business logic to add Spaceman threw an exception:  " +exception.getMessage());
     }
 
 }

@@ -23,7 +23,7 @@ public class SpacemanController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<Spaceman> addSpaceman(@RequestBody Spaceman spaceman){
+    public ResponseEntity<Spaceman> addSpaceman(@RequestBody Spaceman spaceman)throws Exception{
         Spaceman savedSpaceman= service.addSpaceman(spaceman);
         return new ResponseEntity<Spaceman>(savedSpaceman, HttpStatus.CREATED);
     }
