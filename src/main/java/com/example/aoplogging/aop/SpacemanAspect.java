@@ -14,6 +14,7 @@ import java.util.Date;
 public class SpacemanAspect {
 
     //Do this before starting EVERY method of SpacemanController (fully qualified classname):
+    //This whole class is an Aspect and each method in this Aspect is an advice
     //having any (..) number of params
     //this is called a pointCut expression
     //JoinPoint is the place where this pointCut executes
@@ -39,19 +40,20 @@ public class SpacemanAspect {
         System.out.println("Request to service " +joinPoint.getSignature() + "ended at "+ new Date());
     }
 
-    //more advices
+    //more advices for specific method: addSpaceman
     @AfterReturning(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))", returning = "spaceman")
     public void afterReturningAdviceForService(JoinPoint joinPoint, Spaceman spaceman){
         System.out.println("Business logic to add a Spaceman executed successfully. Spaceman is saved with ID :" + spaceman.getId());
     }
-
+    //more advices for specific method: addSpaceman
     @AfterThrowing(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))", throwing = "exception")
     public void afterThrowingAdviceForService(JoinPoint joinPoint, Exception exception){
         System.out.println("Business logic to add Spaceman threw an exception:  " +exception.getMessage());
     }
-
+    
+    //more advices for specific method: addSpaceman
     //Around is the MOST POWERFUL Advice
-    // version 1 : basics
+    // version 1 : basics : void return type
 //    @Around(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))")
 //    public void aroundAdviceForService(ProceedingJoinPoint joinPoint){
 //        System.out.println("Inside Around advice in Aspect: Business Logic to save Spaceman started at: "+ new Date());
@@ -64,7 +66,7 @@ public class SpacemanAspect {
 //        System.out.println("Inside Around advice in Aspect: Business Logic to save Spaceman ended at: "+ new Date());
 //    }
 
-    //Around version2 : returning something useful to Client
+    //Around version2 : returning something useful to Client ; returns the addedObject: spaceman
 //    @Around(value = "execution(* com.example.aoplogging.service.SpacemanService.addSpaceman(..))")
 //    public Spaceman aroundAdviceForService(ProceedingJoinPoint joinPoint){
 //        System.out.println("Inside Around advice in Aspect: Business Logic to save Spaceman started at: "+ new Date());
