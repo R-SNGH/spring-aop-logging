@@ -12,7 +12,7 @@ import java.util.Date;
 @Aspect
 @Component // to make this a bean
 public class SpacemanAspect {
-
+    // ORDER OF EXECUTION:  Before , AfterReturning / AfterThrowing, After
     //Do this before starting EVERY method of SpacemanController (fully qualified classname):
     //This whole class is an Aspect and each method in this Aspect is an advice
     //having any (..) number of params
